@@ -14,9 +14,13 @@ from dotenv import load_dotenv  # noqa: E402
 load_dotenv(os.path.join(SCANNER, ".env"))
 from navigium_common import BASE, SCHOOL, login  # noqa: E402
 
-# Stand 07.10.2026: Johan hat in Navigium nur noch "Unidad 1 - A1" (314109 und der Doppel-Scan
-# 315954 sind gelöscht). Kommen Lektionen dazu, hier eintragen.
-LEKTIONEN = [("315953", "Unidad 1 · Mi barrio / por la tarde")]
+# Reihenfolge wie im Buch (S. 8 bis S. 27). Doppelte Wörter zählen nur beim ersten Vorkommen.
+LEKTIONEN = [
+    ("321547", "S. 8 · ¡Hola!"),
+    ("321549", "Unidad 1 · ¡Adiós, verano! ¡Hola, amigos!"),
+    ("315953", "Unidad 1 · Mi barrio"),
+    ("321550", "Unidad 1 · Y por la tarde"),
+]
 ZIEL = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "data", "vokabeln.js")
 
 

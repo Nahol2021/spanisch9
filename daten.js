@@ -10,7 +10,7 @@ window.ARBEIT = {
   datum: "2026-10-14",
   hinweis: "Die Regeln zum Nachschlagen stehen auch in deiner <a href=\"" + GRAMMATIK + "\">Grammatik-Sammlung</a> (dort Spanisch wählen). Einen Text über dich schreiben übst du in den <a href=\"https://nahol2021.github.io/schreibformen/#spanisch-presentarse\">Schreibformen</a>.",
   lernplan: [
-    "<b>Vokabeln</b> Unidad 1 – A1 (aus deinem Navigium)",
+    "<b>Vokabeln</b> S. 8 bis Unidad 1 B (aus deinem Navigium)",
     "<b>Begrüßen & verabschieden</b>, Befinden",
     "<b>Sich vorstellen</b>: Name, Alter, Herkunft, Sprachen, Telefonnummer",
     "<b>Wohnort & Stadtviertel</b> beschreiben (hay …)",
@@ -25,7 +25,7 @@ window.ARBEIT = {
   ],
   abschnitte: [
   {
-    id: "vokabeln", titel: "Vokabeln", kurz: "Unidad 1 – A1 aus deinem Navigium",
+    id: "vokabeln", titel: "Vokabeln", kurz: "S. 8 bis Unidad 1 B – aus deinem Navigium",
     bloecke: [{ typ: "karteikarten" }, { typ: "vokSchreiben" }, { typ: "vokListe", ueberschrift: "Alle Wörter" }]
   },
   {
@@ -44,7 +44,8 @@ window.ARBEIT = {
       { typ: "uebung", id: "v-endung", art: "auswahl", titel: "Wer ist gemeint?", intro: "Zu welcher Person passt die Form?",
         kategorien: ["yo", "tú", "él/ella", "nosotros", "vosotros", "ellos/ellas"], items: [
           { q: "escuchas", a: 1 }, { q: "nadamos", a: 3 }, { q: "vivís", a: 4 }, { q: "compran", a: 5 }, { q: "hago", a: 0 },
-          { q: "es", a: 2 }, { q: "sois", a: 4 }, { q: "charla", a: 2 }, { q: "comemos", a: 3 }, { q: "eres", a: 1 }, { q: "toman", a: 5 }, { q: "estudio", a: 0 } ] },
+          { q: "es", a: 2 }, { q: "sois", a: 4 }, { q: "charla", a: 2 }, { q: "comemos", a: 3 }, { q: "eres", a: 1 }, { q: "toman", a: 5 }, { q: "estudio", a: 0 },
+          { q: "leéis", a: 4 }, { q: "escribe", a: 2 }, { q: "compartimos", a: 3 }, { q: "bebo", a: 0 }, { q: "viven", a: 5 } ] },
       { typ: "uebung", id: "v-regel", art: "luecke", titel: "Regelmäßige Verben", intro: "Setz das Verb in der richtigen Form ein. <b>Enter</b> springt weiter.", items: [
         { s: "Yo {{hablo::hablar}} alemán y un poco de español." },
         { s: "¿Tú {{escuchas::escuchar}} música por la tarde?" },
@@ -59,7 +60,15 @@ window.ARBEIT = {
         { s: "¿Vosotros {{vivís::vivir}} aquí?", why: "vosotros bei -ir: -ís." },
         { s: "Mis amigos {{quedan::quedar}} en el parque." },
         { s: "¿Qué {{necesitas::necesitar}} para la clase?" },
-        { s: "Nosotros {{comemos::comer}} en la heladería." } ] },
+        { s: "Nosotros {{comemos::comer}} en la heladería." },
+        { s: "Yo {{leo::leer}} cómics por la tarde." },
+        { s: "¿Tú {{bebes::beber}} un zumo?" },
+        { s: "Nosotros {{escribimos::escribir}} mensajes.", why: "nosotros bei -ir: -imos." },
+        { s: "Mis primos {{comparten::compartir}} fotos en Internet." },
+        { s: "¿Vosotros {{comprendéis::comprender}} el ejercicio?", why: "vosotros bei -er: -éis." },
+        { s: "Mi prima {{chatea::chatear}} con sus amigas." },
+        { s: "Yo {{miro::mirar}} vídeos en casa." },
+        { s: "¿Qué {{buscas::buscar}} en Internet?" } ] },
       { typ: "uebung", id: "v-ser-hacer", art: "luecke", titel: "ser und hacer", items: [
         { s: "Yo {{soy::ser}} de Alemania." },
         { s: "¿De dónde {{eres::ser}} tú?" },
@@ -120,7 +129,8 @@ window.ARBEIT = {
         { q: "¿___ es tu número de teléfono?", o: ["Cuál", "Qué", "Cuántos"], a: 0 },
         { q: "¿___ tal? – Muy bien, gracias.", o: ["Qué", "Cómo", "Cuál"], a: 0 },
         { q: "¿___ hay en tu barrio? – Hay un cine.", o: ["Qué", "Dónde", "Quién"], a: 0 },
-        { q: "¿___ son? – Son mis compañeros.", o: ["Quiénes", "Quién", "Cuántos"], a: 0, why: "Mehrere Personen → ¿Quiénes?" } ] },
+        { q: "¿___ son? – Son mis compañeros.", o: ["Quiénes", "Quién", "Cuántos"], a: 0, why: "Mehrere Personen → ¿Quiénes?" },
+        { q: "¿___ lenguas hablas? – Hablo alemán e inglés.", o: ["Qué", "Cómo", "Dónde"], a: 0, why: "¿Qué + Nomen? = welche …?" } ] },
       { typ: "uebung", id: "f-satz", art: "satz", titel: "Sätze bauen", intro: "Tipp die Wörter in der richtigen Reihenfolge an. Antippen oben nimmt ein Wort zurück.", items: [
         { q: "Was machst du nachmittags?", a: ["¿Qué haces por la tarde?"] },
         { q: "In meinem Viertel gibt es ein Kino.", a: ["En mi barrio hay un cine."] },
@@ -129,7 +139,10 @@ window.ARBEIT = {
         { q: "Woher kommt ihr?", a: ["¿De dónde sois?"] },
         { q: "Mein Nachbar heißt Pablo.", a: ["Mi vecino se llama Pablo."] },
         { q: "Ich höre immer Musik.", a: ["Siempre escucho música.", "Escucho siempre música.", "Escucho música siempre."] },
-        { q: "Sprichst du Englisch?", a: ["¿Hablas inglés?"] } ] }
+        { q: "Sprichst du Englisch?", a: ["¿Hablas inglés?"] },
+        { q: "Normalerweise lese ich Comics.", a: ["Normalmente leo cómics.", "Leo cómics normalmente."] },
+        { q: "Ich chatte mit meinem Cousin.", a: ["Chateo con mi primo."] },
+        { q: "Ich spreche Deutsch und auch ein bisschen Spanisch.", a: ["Hablo alemán y también un poco de español."] } ] }
     ]
   },
   {
@@ -143,13 +156,14 @@ window.ARBEIT = {
       { typ: "uebung", id: "z-hoeren", art: "hoeren", titel: "Hör die Zahl", intro: "Tipp auf „Anhören“ und schreib die Zahl als Ziffer.",
         items: [3, 14, 6, 17, 11, 9, 20, 2, 13, 18].map(n => ({ sprich: ZAHLEN[n], a: [String(n)], platzhalter: "Ziffer" })) },
       { typ: "tabelle", ueberschrift: "Wie oft?", kopf: ["Spanisch", "Deutsch"], zeilen: [
-        ["siempre", "immer"], ["todos los días", "jeden Tag"], ["a veces", "manchmal"], ["nunca", "nie"] ] },
-      { typ: "box", html: "<span class=\"leise\"><i>a veces</i> steht in deinem Navigium. <i>siempre</i>, <i>todos los días</i> und <i>nunca</i> sind übliche Ergänzungen – frag nach, welche ihr hattet.</span>" },
+        ["siempre", "immer"], ["todos los días", "jeden Tag"], ["normalmente", "normalerweise"], ["a veces", "manchmal"], ["nunca", "nie"] ] },
+      { typ: "box", html: "<span class=\"leise\"><i>siempre</i>, <i>normalmente</i> und <i>a veces</i> stehen in deinem Navigium. <i>todos los días</i> und <i>nunca</i> sind übliche Ergänzungen – frag nach, ob ihr die hattet.</span>" },
       { typ: "uebung", id: "z-oft", art: "auswahl", titel: "Häufigkeit", items: [
         { q: "„Ich höre <b>immer</b> Musik.“ → ___ escucho música.", o: ["Siempre", "A veces", "Nunca"], a: 0 },
         { q: "„<b>Manchmal</b> schwimme ich.“ → ___ nado.", o: ["A veces", "Siempre", "Todos los días"], a: 0 },
         { q: "„Ich lerne <b>jeden Tag</b>.“ → Estudio ___.", o: ["todos los días", "a veces", "nunca"], a: 0 },
-        { q: "„Ich schwimme <b>nie</b>.“ → ___ nado.", o: ["Nunca", "Siempre", "A veces"], a: 0 } ] }
+        { q: "„Ich schwimme <b>nie</b>.“ → ___ nado.", o: ["Nunca", "Siempre", "A veces"], a: 0 },
+        { q: "„<b>Normalerweise</b> mache ich die Hausaufgaben zu Hause.“ → ___ hago los deberes en casa.", o: ["Normalmente", "Nunca", "Solo"], a: 0 } ] }
     ]
   },
   {
@@ -186,7 +200,7 @@ window.ARBEIT = {
         { es: "¿Qué hay en tu barrio?" },
         { du: "Nenne drei Dinge in deinem Viertel.", es: "En mi barrio hay un cine, una piscina y tiendas." },
         { es: "¿Qué haces por la tarde?" },
-        { du: "Sag, was du nachmittags machst – mit Häufigkeit.", es: "A veces nado en la piscina y siempre hago los deberes." },
+        { du: "Sag, was du nachmittags machst – mit Häufigkeit.", es: "Normalmente hago los deberes en casa. A veces leo cómics o chateo con mis amigos." },
         { es: "Yo charlo con mis amigos en el parque." },
         { du: "Reagiere und schlag vor, euch zu verabreden.", es: "¡Qué guay! ¿Quedamos en el parque?" },
         { es: "¡Claro! ¡Adiós!" },
@@ -200,8 +214,8 @@ window.ARBEIT = {
         { du: "Sag, was sie nachmittags macht.", es: "Escucha música y a veces nada en la piscina." } ] },
       { typ: "tabelle", ueberschrift: "Redemittel", kopf: ["Wofür", "Spanisch"], zeilen: [
         ["Begrüßen", "¡Hola! · ¿Qué tal? · ¿Y tú?"], ["Befinden", "Muy bien / superbién · Bien · Regular · Más o menos · Mal · Fatal"],
-        ["Sich vorstellen", "Me llamo … · Soy … · Tengo … años · Soy de … · Hablo … · Mi número de teléfono es el …"],
-        ["Wohnort", "Vivo en … · En mi barrio hay … · Mi barrio es …"], ["Nachmittag", "Por la tarde … · siempre · a veces · Quedo con mis amigos"],
+        ["Sich vorstellen", "Me llamo … · Soy … · Tengo … años · Soy de … · Hablo … y también un poco de … · Mi número de teléfono es el …"],
+        ["Wohnort", "Vivo en … · En mi barrio hay … · Mi barrio es …"], ["Nachmittag", "Por la tarde … · siempre · normalmente · a veces · Quedo con mis amigos · Leo / Chateo / Miro vídeos"],
         ["Andere vorstellen", "Este es … / Esta es … · Se llama … · Es de …"], ["Reagieren", "¡Qué guay! · ¡Genial! · ¡Claro! · ¡Mira!"],
         ["Verabschieden", "¡Adiós! · ¡Hasta luego!"] ] }
     ]

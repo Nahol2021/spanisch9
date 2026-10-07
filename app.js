@@ -140,7 +140,7 @@ function enterWeiter(box, amEnde) {
 
 /* Übungskarte: Auswahl gibt sofort Rückmeldung, alles andere mit "Prüfen". */
 function uebung(u) {
-  (u.items || []).forEach((it, i) => { ITEMS[u.id + "-" + i] = { art: u.art, it, kategorien: u.kategorien, titel: u.titel }; });
+  if (Array.isArray(u.items)) u.items.forEach((it, i) => { ITEMS[u.id + "-" + i] = { art: u.art, it, kategorien: u.kategorien, titel: u.titel }; });
   const marke = h("span", { class: "marke-klein" }), koerper = h("div"), ergebnis = h("p", { class: "ergebnis", role: "status" }), fuss = h("div", { class: "knoepfe" });
   const markeSetzen = () => { const s = stand(u.id); marke.textContent = s ? "Bestwert " + Math.round(s.best * 100) + " %" : "noch offen"; marke.className = "marke-klein" + (s && s.best >= .8 ? " gut" : ""); };
   const fertig = (r, n) => { merke(u.id, r, n); markeSetzen(); ergebnis.textContent = r + " von " + n + " richtig" + (r === n ? " – sitzt!" : " – Fehler landen im Fehlertrainer."); };
@@ -169,6 +169,8 @@ function uebung(u) {
 /* ---------- Vokabeln (nur aus Navigium) ---------- */
 const VOK = (window.VOKABELN?.lektionen || []).flatMap(l => l.vokabeln.map(v => ({ ...v, lektion: l.name })));
 const vokId = v => "voc:" + v.es;
+// Muster wie "¡Qué + adj./adv.!" oder "bienvenido a ..." sind keine Rechtschreibaufgabe – nur Karteikarte.
+const SCHREIBBAR = VOK.filter(v => !/\+|\.\.\.|…/.test(v.es));
 // Antwortvarianten: "el amigo, la amiga" → beide Teile; "escuchar algo" → auch ohne "algo".
 function vokVarianten(es) {
   const out = new Set([es]);
@@ -176,7 +178,7 @@ function vokVarianten(es) {
   [...out].forEach(t => { out.add(t.replace(/\s+(algo|a alguien)$/, "")); out.add(t.replace(/^[¡¿]|[!?]$/g, "")); });
   return [...out].filter(Boolean);
 }
-VOK.forEach(v => { ITEMS[vokId(v)] = { art: "luecke", it: { s: v.de.join("; ") + " → {{" + vokVarianten(v.es).join("|") + "}}" }, titel: "Vokabeln" }; });
+SCHREIBBAR.forEach(v => { ITEMS[vokId(v)] = { art: "luecke", it: { s: v.de.join("; ") + " → {{" + vokVarianten(v.es).join("|") + "}}" }, titel: "Vokabeln" }; });
 
 function karteikarten() {
   let stapel = mischen(VOK), offen = false, anzahl = stapel.length;
@@ -195,7 +197,7 @@ function karteikarten() {
   return h("section", { class: "uebung" }, h("div", { class: "uebkopf" }, h("h3", {}, "Karteikarten"), h("span", { class: "marke-klein" }, VOK.length + " Wörter")), h("p", { class: "intro" }, "„Kann ich“ legt die Karte weg, „Nochmal“ schiebt sie nach hinten."), box);
 }
 const vokSchreiben = () => uebung({ id: "vok-schreiben", art: "luecke", titel: "Schreiben", intro: "Schreib das spanische Wort – mit Akzenten und ¡! ¿? wo nötig. „algo“ darfst du weglassen. Zehn Wörter pro Runde.",
-  items: () => mischen(VOK).slice(0, 10).map(v => ({ id: vokId(v), ...ITEMS[vokId(v)].it })) });
+  items: () => mischen(SCHREIBBAR).slice(0, 10).map(v => ({ id: vokId(v), ...ITEMS[vokId(v)].it })) });
 
 /* ---------- Abschnitte rendern ---------- */
 const BLOCK = {
@@ -224,7 +226,7 @@ function probearbeit() {
   const starten = () => {
     box.innerHTML = "";
     const pool = Object.entries(ITEMS).filter(([id, x]) => !id.startsWith("voc:") && x.art !== "hoeren");
-    const wahl = [...mischen(pool).slice(0, 20), ...mischen(VOK).slice(0, 5).map(v => [vokId(v), ITEMS[vokId(v)]])];
+    const wahl = [...mischen(pool).slice(0, 20), ...mischen(SCHREIBBAR).slice(0, 5).map(v => [vokId(v), ITEMS[vokId(v)]])];
     const ol = h("ol", { class: "aufgaben" });
     const ctrl = wahl.map(([id, x]) => { const c = x.art === "auswahl" ? auswahlItem(x.it, id, { sofort: false, kategorien: x.kategorien }) : BAU[x.art](x.it, id + "-p"); ol.append(c.el); return { id, c }; });
     const ergebnis = h("div");
