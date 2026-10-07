@@ -10,7 +10,7 @@ window.ARBEIT = {
   datum: "2026-10-14",
   hinweis: "Die Regeln zum Nachschlagen stehen auch in deiner <a href=\"" + GRAMMATIK + "\">Grammatik-Sammlung</a> (dort Spanisch wählen). Einen Text über dich schreiben übst du in den <a href=\"https://nahol2021.github.io/schreibformen/#spanisch-presentarse\">Schreibformen</a>.",
   lernplan: [
-    "<b>Vokabeln</b> S. 8–27 (aus deinem Navigium)",
+    "<b>Vokabeln</b> Unidad 1 – A1 (aus deinem Navigium)",
     "<b>Begrüßen & verabschieden</b>, Befinden",
     "<b>Sich vorstellen</b>: Name, Alter, Herkunft, Sprachen, Telefonnummer",
     "<b>Wohnort & Stadtviertel</b> beschreiben (hay …)",
@@ -25,7 +25,7 @@ window.ARBEIT = {
   ],
   abschnitte: [
   {
-    id: "vokabeln", titel: "Vokabeln", kurz: "Unidad 1 aus deinem Navigium",
+    id: "vokabeln", titel: "Vokabeln", kurz: "Unidad 1 – A1 aus deinem Navigium",
     bloecke: [{ typ: "karteikarten" }, { typ: "vokSchreiben" }, { typ: "vokListe", ueberschrift: "Alle Wörter" }]
   },
   {
@@ -144,7 +144,7 @@ window.ARBEIT = {
         items: [3, 14, 6, 17, 11, 9, 20, 2, 13, 18].map(n => ({ sprich: ZAHLEN[n], a: [String(n)], platzhalter: "Ziffer" })) },
       { typ: "tabelle", ueberschrift: "Wie oft?", kopf: ["Spanisch", "Deutsch"], zeilen: [
         ["siempre", "immer"], ["todos los días", "jeden Tag"], ["a veces", "manchmal"], ["nunca", "nie"] ] },
-      { typ: "box", html: "<span class=\"leise\"><i>siempre</i> und <i>a veces</i> stehen in deinem Navigium. <i>todos los días</i> und <i>nunca</i> sind übliche Ergänzungen – frag nach, welche ihr hattet.</span>" },
+      { typ: "box", html: "<span class=\"leise\"><i>a veces</i> steht in deinem Navigium. <i>siempre</i>, <i>todos los días</i> und <i>nunca</i> sind übliche Ergänzungen – frag nach, welche ihr hattet.</span>" },
       { typ: "uebung", id: "z-oft", art: "auswahl", titel: "Häufigkeit", items: [
         { q: "„Ich höre <b>immer</b> Musik.“ → ___ escucho música.", o: ["Siempre", "A veces", "Nunca"], a: 0 },
         { q: "„<b>Manchmal</b> schwimme ich.“ → ___ nado.", o: ["A veces", "Siempre", "Todos los días"], a: 0 },

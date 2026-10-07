@@ -14,8 +14,9 @@ from dotenv import load_dotenv  # noqa: E402
 load_dotenv(os.path.join(SCANNER, ".env"))
 from navigium_common import BASE, SCHOOL, login  # noqa: E402
 
-# Lehrwerk S. 8 (Hola) bis S. 27 (El alfabeto). 315954 ist ein zweiter Scan von 315953.
-LEKTIONEN = [("314109", "U1 · ¡Hola, amigos!"), ("315953", "U1 · Mi barrio / por la tarde"), ("315954", None)]
+# Stand 07.10.2026: Johan hat in Navigium nur noch "Unidad 1 - A1" (314109 und der Doppel-Scan
+# 315954 sind gelöscht). Kommen Lektionen dazu, hier eintragen.
+LEKTIONEN = [("315953", "Unidad 1 · Mi barrio / por la tarde")]
 ZIEL = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "data", "vokabeln.js")
 
 
@@ -24,6 +25,9 @@ def main():
     gesehen, gruppen = set(), []
     for lid, name in LEKTIONEN:
         r = s.get(f"{BASE}/schule/rest/vokabellektion/{lid}", params={"schule": SCHOOL, "user": s.navigium_user})
+        if r.status_code != 200:
+            print(f"Lektion {lid} gibt es nicht (mehr) – übersprungen.")
+            continue
         r.raise_for_status()
         neu = []
         for v in sorted(r.json().get("vokabeln", []), key=lambda v: v.get("pos") or 0):
