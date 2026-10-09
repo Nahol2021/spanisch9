@@ -153,8 +153,6 @@ window.ARBEIT = {
       { typ: "uebung", id: "z-schreiben", art: "luecke", titel: "Zahl als Wort", items: [
         { s: "7 → {{siete}}" }, { s: "12 → {{doce}}" }, { s: "15 → {{quince}}" }, { s: "16 → {{dieciséis}}", why: "mit Akzent auf dem é" }, { s: "4 → {{cuatro}}" },
         { s: "11 → {{once}}" }, { s: "19 → {{diecinueve}}" }, { s: "20 → {{veinte}}" }, { s: "13 → {{trece}}" }, { s: "9 → {{nueve}}" } ] },
-      { typ: "uebung", id: "z-hoeren", art: "hoeren", titel: "Hör die Zahl", intro: "Tipp auf „Anhören“ und schreib die Zahl als Ziffer.",
-        items: [3, 14, 6, 17, 11, 9, 20, 2, 13, 18].map(n => ({ sprich: ZAHLEN[n], a: [String(n)], platzhalter: "Ziffer" })) },
       { typ: "tabelle", ueberschrift: "Wie oft?", kopf: ["Spanisch", "Deutsch"], zeilen: [
         ["siempre", "immer"], ["todos los días", "jeden Tag"], ["normalmente", "normalerweise"], ["a veces", "manchmal"], ["nunca", "nie"] ] },
       { typ: "box", html: "<span class=\"leise\"><i>siempre</i>, <i>normalmente</i> und <i>a veces</i> stehen in deinem Navigium. <i>todos los días</i> und <i>nunca</i> sind übliche Ergänzungen – frag nach, ob ihr die hattet.</span>" },
@@ -171,14 +169,14 @@ window.ARBEIT = {
     bloecke: [
       { typ: "alphabet", buchstaben: [["a", "a"], ["b", "be"], ["c", "ce"], ["d", "de"], ["e", "e"], ["f", "efe"], ["g", "ge"], ["h", "hache"], ["i", "i"], ["j", "jota"], ["k", "ka"], ["l", "ele"], ["m", "eme"], ["n", "ene"], ["ñ", "eñe"], ["o", "o"], ["p", "pe"], ["q", "cu"], ["r", "erre"], ["s", "ese"], ["t", "te"], ["u", "u"], ["v", "uve"], ["w", "uve doble"], ["x", "equis"], ["y", "i griega"], ["z", "zeta"]] },
       { typ: "box", titel: "Aufpassen", html: "<b>h</b> spricht man nie (hola = „ola“). <b>j</b> und <b>g</b> vor e/i klingen wie „ch“ in Bach. <b>ll</b> ≈ „j“. <b>ñ</b> = „nj“. <b>c</b> vor e/i und <b>z</b> = englisches „th“." },
-      { typ: "uebung", id: "b-hoeren", art: "hoeren", titel: "Was wird buchstabiert?", intro: "Hör zu und schreib das Wort.",
-        items: ["barrio", "patio", "parque", "cine", "tienda", "piscina", "libro", "ropa", "tarde", "verano"].map(w => ({ sprich: w.split("").map(c => ({ a: "a", b: "be", c: "ce", d: "de", e: "e", f: "efe", g: "ge", h: "hache", i: "i", j: "jota", l: "ele", m: "eme", n: "ene", o: "o", p: "pe", q: "cu", r: "erre", s: "ese", t: "te", u: "u", v: "uve", z: "zeta" })[c]).join(", "), a: [w], tempo: .7 })) }
+      { typ: "uebung", id: "b-lesen", art: "luecke", titel: "Was wird buchstabiert?", intro: "Lies die Buchstaben und schreib das Wort.",
+        items: ["barrio", "patio", "parque", "cine", "tienda", "piscina", "libro", "ropa", "tarde", "verano"].map(w => ({ s: w.split("").map(c => ({ a: "a", b: "be", c: "ce", d: "de", e: "e", f: "efe", g: "ge", h: "hache", i: "i", j: "jota", l: "ele", m: "eme", n: "ene", o: "o", p: "pe", q: "cu", r: "erre", s: "ese", t: "te", u: "u", v: "uve", z: "zeta" })[c]).join(" · ") + " → {{" + w + "}}" })) }
     ]
   },
   {
     id: "muendlich", titel: "Mündlicher Teil", kurz: "Dialoge mit Rollenkarte üben",
     bloecke: [
-      { typ: "text", html: "So übst du: Lies, was die andere Person sagt (🔊 zum Anhören), überleg dir deine Antwort und <b>sag sie laut</b>. Erst dann „Vorschlag zeigen“. Achte auf Aussprache und reagiere auf dein Gegenüber (<i>¡Qué guay!</i>, <i>¡Genial!</i>)." },
+      { typ: "text", html: "So übst du: Lies, was die andere Person sagt, überleg dir deine Antwort und <b>sag sie laut</b>. Erst dann „Vorschlag zeigen“. Achte auf Aussprache und reagiere auf dein Gegenüber (<i>¡Qué guay!</i>, <i>¡Genial!</i>)." },
       { typ: "dialog", titel: "1 · Kennenlernen", partner: "Ana", situation: "Du triffst Ana im Patio. Sie ist neu.", zuege: [
         { es: "¡Hola! ¿Qué tal?" },
         { du: "Grüße, sag, wie es dir geht, und frag zurück.", es: "¡Hola! Muy bien, gracias. ¿Y tú?" },

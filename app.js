@@ -24,16 +24,6 @@ const speicher = {
 };
 const fett = s => String(s ?? "").replace(/\*\*(.+?)\*\*/g, "<b>$1</b>");
 
-/* ---------- Vorlesen (spanische Stimme) ---------- */
-const tts = { ok: "speechSynthesis" in window, stimme: null };
-function stimmeSuchen() { try { const v = speechSynthesis.getVoices(); tts.stimme = v.find(x => /^es[-_]ES/i.test(x.lang)) || v.find(x => /^es/i.test(x.lang)) || null; } catch (e) {} }
-if (tts.ok) { stimmeSuchen(); try { speechSynthesis.addEventListener("voiceschanged", stimmeSuchen); } catch (e) {} }
-function sag(text, tempo = .85) {
-  if (!tts.ok) return;
-  try { speechSynthesis.cancel(); const u = new SpeechSynthesisUtterance(text); u.lang = "es-ES"; if (tts.stimme) u.voice = tts.stimme; u.rate = tempo; speechSynthesis.speak(u); } catch (e) {}
-}
-const hoerKnopf = (text, tempo) => tts.ok ? h("button", { class: "hoer", type: "button", "aria-label": "Anhören", onclick(e) { e.stopPropagation(); sag(text, tempo); } }, "🔊") : null;
-
 /* ---------- Stand und Fehler ---------- */
 const stand = id => speicher.get("stand", {})[id];
 function merke(id, r, n) { const s = speicher.get("stand", {}); const alt = s[id]; const w = n ? r / n : 0; s[id] = { best: Math.max(alt ? alt.best : 0, w) }; speicher.set("stand", s); }
@@ -114,21 +104,7 @@ function satzItem(it, id) {
   };
 }
 
-function hoerItem(it, id) {
-  const inp = h("input", { class: "luecke breit", type: "text", id: "f-" + id, autocomplete: "off", autocapitalize: "off", spellcheck: "false", placeholder: it.platzhalter || "Was hörst du?", "aria-label": "Antwort" });
-  const rueck = h("div", { class: "rueck", hidden: true });
-  return { el: h("li", { class: "aufgabe" }, h("div", { class: "knoepfe", style: "margin-top:0" }, h("button", { class: "knopf", type: "button", onclick() { sag(it.sprich, it.tempo || .8); } }, "▶ Anhören"), h("span", { class: "leise" }, it.q || "")), inp, rueck), felder: [inp],
-    pruefen() {
-      const ok = it.a.some(a => norm(a) === norm(inp.value));
-      inp.classList.toggle("ok", ok); inp.classList.toggle("nein", !ok);
-      rueck.hidden = false; rueck.className = "rueck " + (ok ? "ok" : "nein");
-      rueck.innerHTML = ok ? "✓ Richtig." : "✗ Richtig: <b>" + esc(it.a[0]) + "</b>";
-      return ok;
-    },
-    zeigen() { if (!inp.classList.contains("ok")) { inp.value = it.a[0]; inp.classList.add("gezeigt"); } }
-  };
-}
-const BAU = { luecke: lueckeItem, satz: satzItem, hoeren: hoerItem };
+const BAU = { luecke: lueckeItem, satz: satzItem };
 
 function enterWeiter(box, amEnde) {
   box.addEventListener("keydown", e => {
@@ -190,7 +166,7 @@ function karteikarten() {
     box.append(h("button", { class: "karte", type: "button", onclick() { offen = !offen; zeichnen(); } },
       offen ? [h("div", { class: "gross" }, v.de.join("; ")), h("div", { class: "klein" }, v.es)] : [h("div", { class: "gross" }, v.es), h("div", { class: "klein" }, "antippen für die Bedeutung")]),
       h("div", { class: "knoepfe" }, h("button", { class: "knopf haupt", type: "button", onclick() { stapel.shift(); offen = false; zeichnen(); } }, "Kann ich"),
-        h("button", { class: "knopf", type: "button", onclick() { stapel.push(stapel.shift()); offen = false; zeichnen(); } }, "Nochmal"), hoerKnopf(v.es),
+        h("button", { class: "knopf", type: "button", onclick() { stapel.push(stapel.shift()); offen = false; zeichnen(); } }, "Nochmal"),
         h("span", { class: "leise" }, "noch " + stapel.length)));
   };
   zeichnen();
@@ -209,13 +185,13 @@ const BLOCK = {
   karteikarten: () => karteikarten(),
   vokSchreiben: () => vokSchreiben(),
   vokListe: () => h("div", { class: "tabrahmen" }, h("table", {}, h("tr", {}, h("th", {}, "Español"), h("th", {}, "Deutsch")),
-    VOK.map(v => h("tr", {}, h("td", {}, h("span", { style: "display:flex;gap:8px;align-items:center" }, hoerKnopf(v.es), h("b", {}, v.es))), h("td", {}, v.de.join("; ")))))),
-  alphabet: b => h("div", { class: "wortwolke" }, b.buchstaben.map(([g, n]) => h("button", { class: "knopf", type: "button", style: "padding:8px 10px", onclick() { sag(n); } }, g + " – " + n))),
+    VOK.map(v => h("tr", {}, h("td", {}, h("span", { style: "display:flex;gap:8px;align-items:center" }, h("b", {}, v.es))), h("td", {}, v.de.join("; ")))))),
+  alphabet: b => h("div", { class: "wortwolke" }, b.buchstaben.map(([g, n]) => h("span", { class: "knopf", style: "padding:8px 10px" }, g + " – " + n))),
   dialog: b => {
     const zuege = b.zuege.map(z => z.du
       ? (() => { const l = h("div", { class: "es", hidden: true }, z.es); return h("div", { class: "zug du" }, h("div", { class: "wer" }, "Du"), h("div", {}, z.du), l,
-          h("div", { class: "knoepfe", style: "margin-top:6px" }, h("button", { class: "knopf", type: "button", onclick() { l.hidden = !l.hidden; } }, "Vorschlag zeigen"), hoerKnopf(z.es))); })()
-      : h("div", { class: "zug" }, h("div", { class: "wer" }, b.partner), h("div", { style: "display:flex;gap:8px;align-items:center" }, hoerKnopf(z.es), h("span", { class: "es" }, z.es))));
+          h("div", { class: "knoepfe", style: "margin-top:6px" }, h("button", { class: "knopf", type: "button", onclick() { l.hidden = !l.hidden; } }, "Vorschlag zeigen"))); })()
+      : h("div", { class: "zug" }, h("div", { class: "wer" }, b.partner), h("div", { style: "display:flex;gap:8px;align-items:center" }, h("span", { class: "es" }, z.es))));
     return h("section", { class: "uebung" }, h("h3", {}, b.titel), b.situation ? h("p", { class: "intro" }, b.situation) : null, h("div", { class: "dialog" }, zuege));
   }
 };
@@ -225,7 +201,7 @@ function probearbeit() {
   const box = h("div");
   const starten = () => {
     box.innerHTML = "";
-    const pool = Object.entries(ITEMS).filter(([id, x]) => !id.startsWith("voc:") && x.art !== "hoeren");
+    const pool = Object.entries(ITEMS).filter(([id, x]) => !id.startsWith("voc:"));
     const wahl = [...mischen(pool).slice(0, 20), ...mischen(SCHREIBBAR).slice(0, 5).map(v => [vokId(v), ITEMS[vokId(v)]])];
     const ol = h("ol", { class: "aufgaben" });
     const ctrl = wahl.map(([id, x]) => { const c = x.art === "auswahl" ? auswahlItem(x.it, id, { sofort: false, kategorien: x.kategorien }) : BAU[x.art](x.it, id + "-p"); ol.append(c.el); return { id, c }; });
